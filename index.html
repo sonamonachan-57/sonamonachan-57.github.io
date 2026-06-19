@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sona Monachan | AI & Robotics Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0e14;
+      --surface: #141820;
+      --surface2: #1c2230;
+      --accent: #7ee8a2;
+      --accent2: #38c6f4;
+      --text: #e8edf5;
+      --muted: #7a8499;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: rgba(11,14,20,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--accent); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 6rem 2.5rem 4rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .hero-content { flex: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(126,232,162,0.08); border: 1px solid rgba(126,232,162,0.2);
+      color: var(--accent); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } }
+
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 1.2rem; }
+    h1 .name-highlight { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 520px; margin-bottom: 2.5rem; line-height: 1.7; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 1.8rem; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #0b0e14; }
+    .btn-primary:hover { background: #9df5b8; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(126,232,162,0.25); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    .hero-image {
+      flex-shrink: 0; margin-left: 4rem;
+      position: relative;
+    }
+    .hero-image img {
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      object-fit: cover; object-position: top;
+      border: 3px solid rgba(126,232,162,0.3);
+      box-shadow: 0 0 60px rgba(126,232,162,0.12);
+      display: block;
+    }
+    .hero-image::before {
+      content: '';
+      position: absolute; inset: -10px;
+      border-radius: 50%;
+      border: 1px dashed rgba(126,232,162,0.2);
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* STATS STRIP */
+    .stats-strip {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 2rem 0;
+      background: var(--surface);
+    }
+    .stats-inner { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.2rem; }
+
+    /* SECTIONS */
+    section { padding: 5rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--accent); margin-bottom: 0.6rem;
+    }
+    h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.8px; margin-bottom: 3rem; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: 0.78rem; padding: 0.35rem 0.8rem; border-radius: 6px; font-weight: 500; }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .exp-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .exp-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); border-radius: 3px 0 0 3px; opacity: 0; transition: opacity 0.2s; }
+    .exp-card:hover { border-color: rgba(126,232,162,0.2); transform: translateX(4px); }
+    .exp-card:hover::before { opacity: 1; }
+    .exp-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+    .exp-role { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .exp-company { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-top: 0.15rem; }
+    .exp-period { background: var(--surface2); color: var(--muted); font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li { color: var(--muted); font-size: 0.9rem; padding: 0.25rem 0; padding-left: 1.2rem; position: relative; line-height: 1.6; }
+    .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.4rem;
+      transition: all 0.2s;
+    }
+    .skill-card:hover { border-color: rgba(56,198,244,0.3); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(56,198,244,0.06); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .skill-cat { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); font-weight: 700; margin-bottom: 0.5rem; }
+    .skill-items { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      transition: all 0.2s; display: flex; flex-direction: column;
+    }
+    .project-card:hover { border-color: rgba(126,232,162,0.2); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .project-num { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--muted); letter-spacing: 2px; margin-bottom: 0.6rem; }
+    .project-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text); }
+    .project-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; flex: 1; margin-bottom: 1.2rem; }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(126,232,162,0.08); border: 1px solid rgba(126,232,162,0.25);
+      color: var(--accent); font-size: 0.82rem; font-weight: 600;
+      padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none;
+      transition: all 0.2s; margin-top: auto;
+    }
+    .project-link:hover { background: rgba(126,232,162,0.15); border-color: var(--accent); transform: translateX(3px); }
+    .project-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* EDUCATION */
+    .edu-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .edu-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    .edu-card:hover { border-color: rgba(126,232,162,0.2); }
+    .edu-degree { font-weight: 700; font-size: 0.98rem; margin-bottom: 0.3rem; }
+    .edu-school { color: var(--muted); font-size: 0.88rem; }
+    .edu-score { background: rgba(126,232,162,0.08); border: 1px solid rgba(126,232,162,0.2); color: var(--accent); font-weight: 700; font-size: 0.85rem; padding: 0.4rem 0.9rem; border-radius: 8px; white-space: nowrap; }
+
+    /* CONTACT */
+    .contact-wrapper {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3.5rem; text-align: center;
+      background: linear-gradient(135deg, var(--surface), var(--surface2));
+    }
+    .contact-wrapper h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.8rem; }
+    .contact-wrapper p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.85rem; font-weight: 500;
+      padding: 0.6rem 1.2rem; border-radius: 100px; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { padding: 2rem; text-align: center; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { flex-direction: column-reverse; padding: 5rem 1.5rem 3rem; gap: 2.5rem; text-align: center; }
+      .hero-image { margin-left: 0; }
+      .hero-image img { width: 200px; height: 200px; }
+      .hero-actions { justify-content: center; }
+      .container { padding: 0 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .stats-inner { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SM</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">Available for opportunities</div>
+    <h1>Hi, I'm <span class="name-highlight">Sona<br/>Monachan</span></h1>
+    <p class="hero-sub">Computer Science graduate specialising in AI, Robotics & Machine Learning — building intelligent systems that bridge real-world perception and automation.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#projects" class="btn btn-outline">View my work</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="data:image/jpeg;base64,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" alt="Sona Monachan" />
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Internships</div></div>
+    <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num">79.8%</div><div class="stat-label">B.Tech Score</div></div>
+    <div class="stat"><div class="stat-num">2025</div><div class="stat-label">Graduate</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About Me</p>
+    <h2>Who I am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>Computer Science graduate (2025)</strong> from Mount Zion College of Engineering, Kerala, with hands-on internship experience spanning robotics, artificial intelligence, and machine learning.</p>
+        <p>I'm proficient in <strong>Python, ROS2, computer vision, and LLM-based systems including RAG</strong>. I'm passionate about building intelligent, real-world solutions that combine the physical precision of robotics with the cognitive power of AI.</p>
+        <p>Currently based in <strong>Kottarakara, Kerala</strong> and open to opportunities in AI/ML engineering, robotics software, and research roles.</p>
+        <div class="about-tags">
+          <span class="tag">Python</span><span class="tag">ROS2</span><span class="tag">LLMs</span><span class="tag">OpenCV</span>
+          <span class="tag">PyTorch</span><span class="tag">LangChain</span><span class="tag">Deep Learning</span><span class="tag">RAG</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>My journey started with a fascination for how machines can <strong>perceive, reason, and act</strong>. Through multiple internships I've had the privilege of working on real ROS2 robotics systems, building intelligent chatbots, and designing computer vision pipelines used in production environments.</p>
+        <p>I believe the most exciting frontier lies where <strong>AI meets physical systems</strong> — autonomous robots that can navigate, adapt, and communicate with the world around them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background: var(--surface);">
+  <div class="container">
+    <p class="section-label">Work Experience</p>
+    <h2>Where I've worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Robotics Software Engineer Intern</div>
+            <div class="exp-company">Zoho Robotics</div>
+          </div>
+          <span class="exp-period">Sep 2025 – Apr 2026</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed and integrated ROS2-based robotic applications for real-time system interaction and control</li>
+          <li>Implemented computer vision pipelines using OpenCV and MediaPipe for object detection and tracking</li>
+          <li>Worked on AI-based modules including chatbot and voice assistant systems using NLP and LLMs</li>
+          <li>Built and experimented with Retrieval-Augmented Generation (RAG) pipelines for context-aware responses</li>
+          <li>Collaborated on developing intelligent automation solutions combining AI and robotics</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Artificial Intelligence Intern</div>
+            <div class="exp-company">Codec Technologies</div>
+          </div>
+          <span class="exp-period">Aug 2025 – Sep 2025</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed ML and NLP models on real-world datasets</li>
+          <li>Built and tested multiple AI models in text processing and prediction systems</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">AI with Python Intern</div>
+            <div class="exp-company">TECHMAGHI</div>
+          </div>
+          <span class="exp-period">Jan 2025</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Hands-on training in Python, Data Analysis, and Machine Learning</li>
+          <li>Worked on AI-based data modeling and automation projects</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Industrial Intern</div>
+            <div class="exp-company">KELTRON Equipment Complex, Thiruvananthapuram</div>
+          </div>
+          <span class="exp-period">Aug 2022 – Sep 2022</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Gained exposure to System Development Life Cycle (SDLC) and industrial systems</li>
+          <li>Participated in training sessions across PEG, SSG, and SPG groups</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">Technical Skills</p>
+    <h2>What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <div class="skill-cat">Languages</div>
+        <div class="skill-items">Python · C · C++</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-cat">AI / ML / NLP</div>
+        <div class="skill-items">Machine Learning · Deep Learning · NLP · LLMs · RAG · Generative AI</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🦾</div>
+        <div class="skill-cat">Robotics</div>
+        <div class="skill-items">ROS2 · Robot Perception · Sensor Integration · Control Systems</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">👁</div>
+        <div class="skill-cat">Computer Vision</div>
+        <div class="skill-items">OpenCV · MediaPipe · PyTorch · Object Detection · Gesture Recognition</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-cat">Frameworks & Tools</div>
+        <div class="skill-items">LangChain · NumPy · Pandas · Git · Data Structures · DBMS</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄</div>
+        <div class="skill-cat">Databases & Web</div>
+        <div class="skill-items">SQL · MySQL · HTML · CSS · JavaScript</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--surface);">
+  <div class="container">
+    <p class="section-label">Projects</p>
+    <h2>Things I've built</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-title">LLM-Based Voice & Text Chatbots</div>
+        <div class="project-desc">Intelligent chatbots supporting both voice and text interactions using LLMs. Integrated NLP, speech-to-text, and text-to-speech for seamless communication via LangChain workflows.</div>
+        <a href="https://github.com/sonamonachan-57/chatbot" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-title">Computer Vision Applications</div>
+        <div class="project-desc">Multiple real-time computer vision apps using OpenCV and MediaPipe — object detection, hand tracking, face detection, and pose estimation with accuracy optimisation.</div>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <a href="https://github.com/sonamonachan-57/opencv-face-vision-systems" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> Face Vision</a>
+        <a href="https://github.com/sonamonachan-57/opencv-hand-vision-systems" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> Hand Vision</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-title">ROS2 Robotics — Gazebo Simulation</div>
+        <div class="project-desc">Mobile robot simulation in Gazebo using ROS2 with LiDAR-based navigation. Also implemented UR5e robotic arm manipulation using ROS2 packages, TF, and sensor data processing.</div>
+        <a href="https://github.com/sonamonachan-57/ros2_ws" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-title">Real-Time Hand Gesture Recognition (CNN)</div>
+        <div class="project-desc">Real-time gesture recognition system using Convolutional Neural Networks, Python, and OpenCV — enabling natural human-computer interaction through gesture classification.</div>
+        <a href="https://github.com/sonamonachan-57/Gesture-recognition" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">05</div>
+        <div class="project-title">Color Image Encryption (Compressive Sensing + DNA)</div>
+        <div class="project-desc">Secure image encryption algorithm combining compressive sensing and DNA encoding techniques, improving data security and efficiency in image transmission.</div>
+        <a href="https://github.com/sonamonachan-57/encryption" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">06</div>
+        <div class="project-title">Stitch Dream — Dress Design Web App</div>
+        <div class="project-desc">Web-based fashion assistant for generating and visualising custom dress designs. Built with HTML, CSS, JavaScript, and backend integration for user-friendly design generation.</div>
+        <a href="https://github.com/sonamonachan-57/DressMaker" target="_blank" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> View on GitHub</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label">Education</p>
+    <h2>Academic background</h2>
+    <div class="edu-list">
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">B.Tech in Computer Science</div>
+          <div class="edu-school">Mount Zion College of Engineering, Pathanamthitta, Kerala · 2021–2025</div>
+        </div>
+        <div class="edu-score">79.8%</div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">Higher Secondary Education</div>
+          <div class="edu-school">St. Gregorious Higher Secondary School, Kottarakara · 2019–2021</div>
+        </div>
+        <div class="edu-score">92%</div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">High School</div>
+          <div class="edu-school">Mar Thoma Higher Secondary School, Valakom · 2018</div>
+        </div>
+        <div class="edu-score">95%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--surface);">
+  <div class="container">
+    <div class="contact-wrapper">
+      <p class="section-label">Get in Touch</p>
+      <h3>Let's work together</h3>
+      <p>Open to AI/ML, robotics software, and research opportunities. Feel free to reach out!</p>
+      <a href="mailto:sonamonachan57@gmail.com" class="btn btn-primary">sonamonachan57@gmail.com</a>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/sona-monachan-015b96321" target="_blank" class="contact-chip">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/sonamonachan-57" target="_blank" class="contact-chip">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="tel:+917994971543" class="contact-chip">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          +91 7994971543
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Sona Monachan · Built with ❤ · Kottarakara, Kerala</p>
+</footer>
+
+</body>
+</html>
